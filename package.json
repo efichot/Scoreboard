@@ -1,0 +1,28 @@
+{
+  "name": "scoreboard",
+  "version": "1.0.0",
+  "description": "scoreboard app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efichot/Scoreboard.git"
+  },
+  "keywords": [
+    "ES6",
+    "JSX",
+    "react"
+  ],
+  "author": "efichot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/efichot/Scoreboard/issues"
+  },
+  "homepage": "https://github.com/efichot/Scoreboard#readme",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
