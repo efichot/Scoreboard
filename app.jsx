@@ -1,3 +1,21 @@
+const PLAYERS = [
+    {
+        name: "Etienne Fichot",
+        score: 42,
+        id: 1
+    },
+    {
+        name: "Mc Fly",
+        score: 23,
+        id: 2
+    },
+    {
+        name: "Another men on the game",
+        score: 16,
+        id: 3
+    },
+]
+
 function Header(props) {
     return (
         <div className="header">
@@ -12,12 +30,16 @@ Header.propTypes = {
 
 function Counter(props) {
     return (
-        <div className="counter">
-            <button className="counter-action decrement"> - </button>
-            <div className="counter-score"> {props.score} </div>
-            <button className="counter-action increment"> + </button>
-        </div>
-    );
+            <div className="counter">
+                <button className="counter-action decrement"> - </button>
+                <div className="counter-score"> {props.score} </div>
+                <button className="counter-action increment"> + </button>
+            </div>
+        );
+}
+
+Counter.propTypes = {
+    score: React.PropTypes.number.isRequired
 }
 
 function Player(props) {
@@ -27,7 +49,7 @@ function Player(props) {
                 {props.name}
             </div>
             <div className="player-score">
-                <Counter score={props.score} />
+                <Counter score={props.score}/>
             </div>
         </div>
     );
@@ -38,25 +60,41 @@ Player.propTypes = {
     score: React.PropTypes.number.isRequired
 }
 
-function Application(props) {
-    return (
+const Application = React.createClass({
+   propTypes: {
+        title: React.PropTypes.string,
+        players: React.PropTypes.arrayOf(React.PropTypes.shape({
+            name: React.PropTypes.string.isRequired,
+            score: React.PropTypes.number.isRequired,
+            id: React.PropTypes.number.isRequired
+        })).isRequired
+   },
+
+   getDefaultProps: function() {
+       return ({
+         title: "Scoreboard",
+         initialPlayers: PLAYERS
+       });
+   },
+
+   getInitialState: function() {
+        return {
+           players: this.props.initialPlayers
+       }
+   },
+
+    render: function() {
+        return (
         <div className="scoreboard">
-            <Header title={props.title}/>
+            <Header title={this.props.title}/>
             <div className="players">
-                <Player name="Etienne Fichot" score={42} />
-                <Player name="Mc fly" score={31} />
-                <Player name="Another Guy on the Game" score={17} />                
+                 {this.state.players.map(function(player) {
+                    return <Player name={player.name} score={player.score} key={player.id} />
+                })} 
             </div>
         </div>
     );
-}
-
-Application.propTypes = {
-    title: React.PropTypes.string
-}
-
-Application.defaultProps = {
-    title: "Scoreboard"
-}
+    }
+});
 
 ReactDOM.render(<Application/>, document.getElementById('container'));
