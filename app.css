@@ -65,7 +65,7 @@ body {
     font-size: 2em;
   }
 
-  .stopwatch button {
+  .stopwatch-button {
     margin: 8px 5px;
     background-color: #222;
     border-radius: 5px;
@@ -76,9 +76,10 @@ body {
     font-weight: bold;
     text-shadow: none;
     text-transform: uppercase;
+    display: none;
   }
 
-  .stopwatch button:hover {
+  .stopwatch-button:hover {
     background: #4b71b5;
     color: #fafafa;
     cursor: pointer;
@@ -215,4 +216,9 @@ body {
     background: #4b71b5;
     color: #fafafa;
     cursor: pointer;
+  }
+
+  .visible {
+    display: block;
+    margin: 2px auto;
   }
