@@ -19,23 +19,24 @@ const PLAYERS = [
 const Stopwatch = React.createClass({
     getInitialState: function() {
         return {
-            time: 0
+            time: 0,
+            running: false
         }
     },
 
     start: function() {
-        document.querySelector('#pause').classList.add('visible');
-        document.querySelector('#start').classList.remove('visible');
-        window.timer = setInterval(function() {
+        this.state.running = true;
+        this.setState(this.state);        
+        this.timer = setInterval(function() {
             this.state.time += 1;
             this.setState(this.state);
         }.bind(this), 1000);
     },
 
     stopIt: function () {
-        document.querySelector('#start').classList.add('visible');        
-        document.querySelector('#pause').classList.remove('visible');        
-        clearInterval(window.timer);
+        this.state.running = false; 
+        this.setState(this.state);                  
+        clearInterval(this.timer);
     },
 
     resetIt: function() {
@@ -49,9 +50,12 @@ const Stopwatch = React.createClass({
             <div className="stopwatch">
                 <h2>Stopwatch</h2>
                 <div className="stopwatch-time">{this.state.time}</div>
-                <button onClick={function() {this.start()}.bind(this)} id='start' className='stopwatch-button visible' >Start</button>
+                {(this.state.running) ? 
                 <button onClick={function() {this.stopIt()}.bind(this)} id='pause' className='stopwatch-button'>Pause</button>                
-                <button onClick={function() {this.resetIt()}.bind(this)} id='reset' className='stopwatch-button visible'>Reset</button>
+                :                
+                <button onClick={function() {this.start()}.bind(this)} id='start' className='stopwatch-button' >Start</button>
+                }
+                <button onClick={function() {this.resetIt()}.bind(this)} id='reset' className='stopwatch-button'>Reset</button>
             </div>
         )
     }
